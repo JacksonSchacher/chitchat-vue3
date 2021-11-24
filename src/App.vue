@@ -1,15 +1,17 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <ChatThread />
+  <PostMessage />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ChatThread from './components/ChatThread.vue'
+import PostMessage from './components/PostMessage.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    ChatThread,
+    PostMessage
   }
 }
 </script>
