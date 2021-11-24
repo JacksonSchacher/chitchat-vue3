@@ -3,6 +3,7 @@
     <div class="row">
             <ul id="messages">
                 <!-- User Messages -->
+                <li>Chats go here</li>
             </ul>
         </div>
   </main>
@@ -10,7 +11,7 @@
 
 <script>
 import { watchEffect } from '@vue/runtime-core';
-import {io} from 'socket.io-client';
+import { io } from 'socket.io-client';
 export default {
   setup() {
     const socket = io()

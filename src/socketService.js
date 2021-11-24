@@ -1,6 +1,6 @@
 const app = require("express")();
 const server = require("http").Server(app);
-const socket = require("socket.io-client")(server);
+const io = require("socket.io-client")(server);
 const port = 8080;
 
 server.listen(port, () => {
@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
 });
 
-socket.on('connection', (socket) => {
+io.on('connection', (socket) => {
     socket.on('join', (data) => {
         socket.join(data.room);
         socket.in(data.room).emit('message', `New user has joined ${data.room} chat.`);

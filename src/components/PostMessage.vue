@@ -21,15 +21,14 @@ import { io } from 'socket.io-client';
 export default {
   setup() {
     const editable = ref({})
-    const room = "New Room";
-    const socket = io('/chatroom');
+    const socket = io();
     return {
       editable,
       postMessage() {
         try {
           let msg = editable.value;
           console.log(editable.value)
-          socket.emit('message', {msg, room});
+          socket.emit('message', {msg});
           editable.value = {};
         } catch (error) {
           console.log(error);
