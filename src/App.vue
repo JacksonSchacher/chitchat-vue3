@@ -1,18 +1,13 @@
 <template>
-  <ChatThread />
-  <PostMessage />
+<main>
+  <router-view />
+</main>
 </template>
 
 <script>
-import ChatThread from './components/ChatThread.vue'
-import PostMessage from './components/PostMessage.vue'
 
 export default {
   name: 'App',
-  components: {
-    ChatThread,
-    PostMessage
-  }
 }
 </script>
 
