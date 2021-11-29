@@ -18,17 +18,20 @@
 <script>
 import { ref } from '@vue/reactivity';
 import { io } from 'socket.io-client';
+import { socketService } from '../socketService.js'
+
 export default {
   setup() {
     const editable = ref({})
     const socket = io();
     return {
       editable,
-      postMessage() {
+      async postMessage() {
         try {
           let msg = editable.value;
           console.log(editable.value)
-          socket.emit('message', {msg});
+          await socketService.postMessage(msg)
+          // socket.emit('message', {msg}); Probably should be handled by the service
           editable.value = {};
         } catch (error) {
           console.log(error);

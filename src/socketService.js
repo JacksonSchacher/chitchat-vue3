@@ -1,32 +1,40 @@
-const app = require("express")();
-const server = require("http").Server(app);
-const io = require("socket.io-client")(server);
-const port = 8080;
+class SocketService {
 
-server.listen(port, () => {
-    console.log(`Server open and listening on port ${port}`)
-});
+    async messageRoom() {
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
-});
 
-io.on('connection', (socket) => {
-    socket.on('join', (data) => {
-        socket.join(data.room);
-        socket.in(data.room).emit('message', `New user has joined ${data.room} chat.`);
-    });
+        const app = require("express")();
+        const server = require("http").Server(app);
+        const io = require("socket.io-client")(server);
+        const port = 8080;
 
-    socket.on('message', (data) => {
-        console.log("Message: ", data.msg);
-        socket.in(data.room).emit('message', data.msg);
-    });
+        server.listen(port, () => {
+            console.log(`Server open and listening on port ${port}`)
+        });
 
-    socket.on('disconnect', () => {
-        console.log('user disconnected');
-        socket.emit('message', 'user left chat');
-    });
-});
+        app.get('/', (req, res) => {
+            res.sendFile(__dirname + '/index.html');
+        });
+
+        io.on('connection', (socket) => {
+            socket.on('join', (data) => {
+                socket.join(data.room);
+                socket.in(data.room).emit('message', `New user has joined ${data.room} chat.`);
+            });
+
+            socket.on('message', (data) => {
+                console.log("Message: ", data.msg);
+                socket.in(data.room).emit('message', data.msg);
+            });
+
+            socket.on('disconnect', () => {
+                console.log('user disconnected');
+                socket.emit('message', 'user left chat');
+            });
+        });
+    }
+}
+export const socketService = new SocketService();
 // import { io } from 'socket.io-client'
 // import { baseURL, useSockets } from '../env.js'
 // import { logger } from './Logger.js'
